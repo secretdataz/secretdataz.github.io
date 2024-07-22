@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dark Themed Decode_CCode</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #121212;
+        }
+        .card {
+            background-color: #1e1e1e;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card border-secondary">
+                    <div class="card-body">
+                        <h2 class="card-title text-center mb-4 text-light">Decode C-Code</h2>
+                        <h1 id="result" class="text-center mb-4 text-info">Result: </h1>
+                        <form>
+                            <div class="mb-3">
+                                <label for="textInput" class="form-label text-light">Enter encoded string:</label>
+                                <input type="text" class="form-control bg-dark text-light" id="textInput" placeholder="Type encoded string here" oninput="updateResult()">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function Decode_CCode(ccode) {
+            let original = 0;
+            let factor = 1;
+
+            for (let i = ccode.length - 1; i >= 0; i--) {
+                let char = ccode[i];
+
+                if (char === "-") continue;
+
+                let v14;
+                switch (char) {
+                    case "3": v14 = 0; break;
+                    case "8": v14 = 1; break;
+                    case "6": v14 = 2; break;
+                    case "7": v14 = 3; break;
+                    case "0": v14 = 4; break;
+                    case "1": v14 = 5; break;
+                    case "2": v14 = 6; break;
+                    case "4": v14 = 7; break;
+                    case "9": v14 = 8; break;
+                    case "5": v14 = 9; break;
+                    default: return -1;
+                }
+
+                original += v14 * factor;
+                factor *= 10;
+            }
+
+            return original;
+        }
+
+        function updateResult() {
+            const input = document.getElementById('textInput').value;
+            const result = Decode_CCode(input);
+            document.getElementById('result').textContent = `Result: ${result}`;
+        }
+    </script>
+</body>
+</html>
